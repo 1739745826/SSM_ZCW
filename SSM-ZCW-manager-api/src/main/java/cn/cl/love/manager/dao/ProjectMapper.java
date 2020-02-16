@@ -1,0 +1,16 @@
+package cn.cl.love.manager.dao;
+
+import cn.cl.love.bean.Project;
+import java.util.List;
+
+public interface ProjectMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Project record);
+
+    Project selectByPrimaryKey(Integer id);
+
+    List<Project> selectAll();
+
+    int updateByPrimaryKey(Project record);
+}

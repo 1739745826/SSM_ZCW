@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="MySQL" targetRuntime="MyBatis3Simple">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 配置数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ssm_zcw" userId="root"
+                        password="070313">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 指定javaBean生成的位置 -->
+        <javaModelGenerator targetPackage="cn.cl.love.bean" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--指定sql映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mybatis" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 指定dao接口生成的位置，mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="cn.cl.love.manager.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+
+        <!-- table指定每个表的生成策略 -->
+        <!--<table tableName="t_account_type_cert" domainObjectName="AccountTypeCert"/>
+        <table tableName="t_advertisement" domainObjectName="Advertisement"/>
+        <table tableName="t_cert" domainObjectName="Cert"/>
+        <table tableName="t_member" domainObjectName="Member"/>
+        <table tableName="t_member_address" domainObjectName="MemberAddress"/>
+        <table tableName="t_member_cert" domainObjectName="MemberCert"/>
+        <table tableName="t_member_project_follow" domainObjectName="MemberProjectFollow"/>
+        <table tableName="t_message" domainObjectName="Message"/>
+        <table tableName="t_order" domainObjectName="Order"/>
+        <table tableName="t_param" domainObjectName="Param"/>
+        <table tableName="t_permission" domainObjectName="Permission"/>
+        <table tableName="t_project" domainObjectName="Project"/>
+        <table tableName="t_project_tag" domainObjectName="ProjectTag"/>
+        <table tableName="t_project_type" domainObjectName="ProjectType"/>
+        <table tableName="t_return" domainObjectName="Return"/>
+        <table tableName="t_role" domainObjectName="Role"/>
+        <table tableName="t_role_permission" domainObjectName="RolePermission"/>
+        <table tableName="t_tag" domainObjectName="Tag"/>
+        <table tableName="t_type" domainObjectName="Type"/>
+        <table tableName="t_user" domainObjectName="User"/>
+        <table tableName="t_user_role" domainObjectName="UserRole"/>-->
+        <table tableName="act_re_procdef" domainObjectName="Process"/>
+    </context>
+</generatorConfiguration>

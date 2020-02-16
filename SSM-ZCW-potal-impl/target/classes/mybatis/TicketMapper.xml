@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cl.love.potal.dao.TicketMapper">
+    <resultMap id="BaseResultMap" type="cn.cl.love.bean.Ticket">
+        <id column="id" property="id"/>
+        <result column="memberid" property="memberid"/>
+        <result column="piid" property="piid"/>
+        <result column="status" property="status"/>
+        <result column="authcode" property="authcode"/>
+        <result column="pstep" property="pstep"/>
+
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_Ticket
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.cl.love.bean.Ticket">
+        insert into t_Ticket (memberid, status, pstep)
+        values (#{memberid}, #{status}, #{pstep})
+    </insert>
+    <!--更新数据-->
+    <update id="updatePstep" parameterType="cn.cl.love.bean.Ticket">
+        update t_Ticket
+        set pstep = #{pstep}
+        where memberid = #{memberid}
+          and status = '0'
+    </update>
+
+    <!--  更新流程id验证码流程进度-->
+    <update id="updatePiidAndPstepAndAuthcode" parameterType="cn.cl.love.bean.Ticket">
+        update t_Ticket
+        set pstep   = #{pstep},
+            authcode=#{authcode},
+            piid=#{piid}
+        where id = #{id}
+          and status = '0'
+    </update>
+
+    <!--  更新t_ticket表的status字段 0 -> 1-->
+    <update id="updateStatus" parameterType="cn.cl.love.bean.Ticket">
+        update t_Ticket
+        set status = '1'
+        where id = #{id}
+          and status = '0'
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from t_Ticket
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from t_Ticket
+    </select>
+
+    <!--查询流程-->
+    <select id="getTicketByMemberId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from t_Ticket
+        where memberid = #{memberid}
+          and status = '0'
+    </select>
+
+    <!--根据流程ID查询会员-->
+    <select id="getMemberByPiid" resultType="cn.cl.love.bean.Member">
+        select t_member.*
+        from t_member
+                 inner join t_ticket on t_member.id = t_ticket.id
+        where t_ticket.piid = ${piid}
+    </select>
+</mapper>

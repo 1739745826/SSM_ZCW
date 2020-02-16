@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1580978964834" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="email2" isClosed="false" isExecutable="true" processType="None">
+    <startEvent id="_2" name="开始"/>
+    <userTask activiti:assignee="车弘昆" activiti:exclusive="false" id="_3" name="组长审批"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="_4" name="ExclusiveGateway">
+      <extensionElements>
+        <activiti:executionListener event="start"/>
+      </extensionElements>
+    </exclusiveGateway>
+    <sequenceFlow id="_5" sourceRef="_2" targetRef="_3"/>
+    <sequenceFlow id="_6" sourceRef="_3" targetRef="_4"/>
+    <endEvent id="_7" name="成功结束">
+      <extensionElements>
+        <activiti:executionListener event="start"/>
+      </extensionElements>
+    </endEvent>
+    <endEvent id="_8" name="失败结束">
+      <extensionElements>
+        <activiti:executionListener event="start"/>
+      </extensionElements>
+    </endEvent>
+    <sequenceFlow id="_9" name="审批通过" sourceRef="_4" targetRef="_7">
+      <extensionElements>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_10" name="审批拒绝" sourceRef="_4" targetRef="_8">
+      <extensionElements>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+        <activiti:executionListener event="start"/>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="email2">
+      <bpmndi:BPMNShape bpmnElement="_2" id="Shape-_2">
+        <omgdc:Bounds height="32.0" width="32.0" x="360.0" y="60.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" id="Shape-_3">
+        <omgdc:Bounds height="55.0" width="85.0" x="330.0" y="145.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" id="Shape-_4" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="350.0" y="235.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" id="Shape-_7">
+        <omgdc:Bounds height="32.0" width="32.0" x="250.0" y="360.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" id="Shape-_8">
+        <omgdc:Bounds height="32.0" width="32.0" x="450.0" y="365.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_5" id="BPMNEdge__5" sourceElement="_2" targetElement="_3">
+        <omgdi:waypoint x="376.0" y="92.0"/>
+        <omgdi:waypoint x="376.0" y="145.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6" id="BPMNEdge__6" sourceElement="_3" targetElement="_4">
+        <omgdi:waypoint x="366.0" y="200.0"/>
+        <omgdi:waypoint x="366.0" y="235.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9" id="BPMNEdge__9" sourceElement="_4" targetElement="_7">
+        <omgdi:waypoint x="350.0" y="251.0"/>
+        <omgdi:waypoint x="265.0" y="310.0"/>
+        <omgdi:waypoint x="265.0" y="360.0312805773287"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-33.0" width="56.0" x="0.0" y="-21.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="_4" targetElement="_8">
+        <omgdi:waypoint x="382.0" y="251.0"/>
+        <omgdi:waypoint x="465.0" y="320.0"/>
+        <omgdi:waypoint x="465.0" y="365.0312805773287"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="48.0" x="-1.0" y="21.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

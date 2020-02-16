@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cl.love.manager.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.cl.love.bean.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="loginacct" jdbcType="VARCHAR" property="loginacct"/>
+        <result column="userpswd" jdbcType="CHAR" property="userpswd"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="createtime" jdbcType="CHAR" property="createtime"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="delBatchUserVO" parameterType="list">
+        delete
+        from t_user
+        where id in
+        <foreach collection="list" open="(" close=")" item="user" separator=",">
+            #{user.id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="cn.cl.love.bean.User">
+        insert into t_user (id, loginacct, userpswd,
+                            username, email, createtime)
+        values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR},
+                #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.cl.love.bean.User">
+        update t_user
+        set loginacct  = #{loginacct,jdbcType=VARCHAR},
+            userpswd   = #{userpswd,jdbcType=CHAR},
+            username   = #{username,jdbcType=VARCHAR},
+            email      = #{email,jdbcType=VARCHAR},
+            createtime = #{createtime,jdbcType=CHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelerct" parameterType="cn.cl.love.bean.User">
+        update t_user
+        <set>
+            <if test="loginacct!=null &amp;&amp; !loginacct.equals(&quot;&quot;)">
+                loginacct=#{loginacct,jdbcType=VARCHAR},
+            </if>
+            <if test="userpswd!=null &amp;&amp; !userpswd.equals(&quot;&quot;)">
+                userpswd=#{userpswd,jdbcType=CHAR},
+            </if>
+            <if test="username!=null &amp;&amp; !username.equals(&quot;&quot;)">
+                username=#{username,jdbcType=VARCHAR},
+            </if>
+            <if test="email!=null &amp;&amp; !email.equals(&quot;&quot;)">
+                email=#{email,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime!=null &amp;&amp; !createtime.equals(&quot;&quot;)">
+                email=#{createtime,jdbcType=CHAR}
+            </if>
+        </set>
+        <where>
+            id = #{id,jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id, loginacct, userpswd, username, email, createtime
+        from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, loginacct, userpswd, username, email, createtime
+        from t_user
+    </select>
+
+    <!--登录-->
+    <select id="queryUserlogin" parameterType="map" resultMap="BaseResultMap">
+        select id, loginacct, userpswd, username, email, createtime
+        from t_user
+        where loginacct = #{loginacct}
+          and userpswd = #{userpswd}
+    </select>
+    <!--模糊查询-->
+    <select id="queryUserSelect" parameterType="map" resultMap="BaseResultMap">
+        select id, loginacct, userpswd, username, email, createtime
+        from t_user
+        where username like #{username}
+    </select>
+
+    <!--查询所有角色-->
+    <select id="queryAllRole" parameterType="Role" resultType="cn.cl.love.bean.Role">
+        select id, name
+        from t_role;
+    </select>
+
+    <!--查询指定用户的角色-->
+    <select id="queryRoleByUserId" parameterType="int" resultType="int">
+        select roleid
+        from t_user_role
+        where userid = #{id}
+    </select>
+    <!--分配角色-->
+    <insert id="assigRole">
+        <foreach collection="data.ids" item="roleid" separator=";">
+            insert into t_user_role(userid, roleid) values(#{userid}, #{roleid})
+        </foreach>
+    </insert>
+
+    <!--回收角色-->
+    <delete id="revokeRole">
+        delete from t_user_role where userid = #{userid} and roleid in
+        <foreach collection="data.ids" item="roleid" open="(" close=")" separator=",">
+            #{roleid}
+        </foreach>
+    </delete>
+
+    <select id="getPermission" resultType="cn.cl.love.bean.Permission">
+        SELECT distinct t_permission.*
+        FROM t_permission
+                 INNER JOIN t_role_permission ON t_permission.`id` = t_role_permission.`permissionid`
+                 INNER JOIN t_role ON t_role.`id` = t_role_permission.`roleid`
+                 INNER JOIN t_user_role ON t_user_role.`roleid` = t_role.`id`
+                 INNER JOIN t_user ON t_user.`id` = t_user_role.`userid`
+        WHERE t_user.`id` = ${id}
+        order by t_permission.id
+    </select>
+</mapper>
